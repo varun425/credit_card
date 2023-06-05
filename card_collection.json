@@ -1,0 +1,103 @@
+{
+	"info": {
+		"_postman_id": "a6d3af6d-56f5-408e-9b47-4e5045328a68",
+		"name": "creditcard_go_poc",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12363634"
+	},
+	"item": [
+		{
+			"name": "user/submit_card",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"card_number\":\"333\",\n    \"issuing_country\":\"africa\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/user/submitcard",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"user",
+						"submitcard"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get_all_cards",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/getallcards",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"getallcards"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get_single_card",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/getsinglecard/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"getsinglecard",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "admin/submit_card",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n    \"card_number\":\"1234\",\n    \"issuing_country\":\"india\"\n},\n{\n    \"card_number\":\"123456\",\n    \"issuing_country\":\"india\"\n},\n{\n    \"card_number\":\"2234\",\n    \"issuing_country\":\"india\"\n},\n{\n    \"card_number\":\"2234\",\n    \"issuing_country\":\"india\"\n},\n{\n    \"card_number\":\"2234\",\n    \"issuing_country\":\"india\"\n},\n{\n    \"card_number\":\"4444\",\n    \"issuing_country\":\"india\"\n},\n{\n    \"card_number\":\"4444\",\n    \"issuing_country\":\"india\"\n},\n{\n    \"card_number\":\"1444\",\n    \"issuing_country\":\"india\"\n},\n{\n    \"card_number\":\"1444\",\n    \"issuing_country\":\"india\"\n},\n{\n    \"card_number\":\"1444\",\n    \"issuing_country\":\"india\"\n},\n{\n    \"card_number\":\"1444\",\n    \"issuing_country\":\"india\"\n},\n{\n    \"card_number\":\"1434\",\n    \"issuing_country\":\"india\"\n}\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/admin/submitcards",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"admin",
+						"submitcards"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
