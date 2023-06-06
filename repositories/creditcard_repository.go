@@ -61,14 +61,25 @@ func SubmitCreditCardAdminRole(creditCard []*models.CreditCard) error {
 }
 
 func CheckCreditCardExists(id string) bool {
-	// Check if the credit card with the given ID exists in CouchDB
-	res := db.Get(context.Background(), id, nil)
-	_, err := res.ID()
-	if err != nil {
+	// Create a selector to match the credit card with the given ID
+	options := kivik.Options{
+		"include_docs": true,
+	}
+	row := db.Get(context.Background(), id, options)
+
+	doc := models.CreditCard{}
+	if err := row.ScanDoc(&doc); err != nil {
+		// An error occurred while scanning the document
 		return false
 	}
+
+	if doc.CardNumber == id {
+		return true
+	}
+
 	return true
 }
+
 
 func GetAllCreditCards() ([]models.CreditCard, error) {
 	// Retrieve all credit cards from CouchDB
