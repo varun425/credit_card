@@ -35,12 +35,24 @@ func SubmitCreditCardUserRole(creditCard *models.CreditCard) error {
 
 func SubmitCreditCardAdminRole(creditCard []*models.CreditCard) (bool , error) {
 	// Initialize a temporary array to store the unprocessed credit cards
+	// Initialize a temporary map to track existing credit card numbers
+	existingCards := make(map[string]bool)
+
+	// Initialize a temporary array to store the unprocessed credit cards
 	var tempArray []*models.CreditCard
 
 	for _, card := range creditCard {
+
+		// Check if the card already exists in the temporary array or in the existing cards map
+		if _, exists := existingCards[card.CardNumber]; exists {
+			// Skip the card if it has already been processed
+			continue
+		}
+
 		exists := repositories.CheckCreditCardExists(card.CardNumber)
 		if exists {
 			// Skip the card if it has already been processed
+			existingCards[card.CardNumber] = true
 			continue
 		}
 
@@ -52,6 +64,7 @@ func SubmitCreditCardAdminRole(creditCard []*models.CreditCard) (bool , error) {
 
 		// Add the card to the temporary array
 		tempArray = append(tempArray, card)
+		existingCards[card.CardNumber] = true
 	}
 
 	if len(tempArray) == 0{
@@ -77,11 +90,13 @@ func SubmitCreditCardAdminRole(creditCard []*models.CreditCard) (bool , error) {
 		if err != nil {
 			return false , err
 		}
-
-		// Wait for 30 seconds before processing the next batch
-		if i != arrayCount-1 {
-			time.Sleep(30 * time.Second)
+		if i == arrayCount-1 {
+			// Return true immediately after processing the last batch
+			return true, nil
 		}
+	
+		// Wait for 30 seconds before processing the next batch
+		time.Sleep(10 * time.Second)
 	}
 
 	return true ,nil
@@ -124,3 +139,7 @@ func isCardBanned(country string) bool {
 
 	return false
 }
+
+
+
+
